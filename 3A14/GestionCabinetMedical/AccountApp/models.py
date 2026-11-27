@@ -18,7 +18,12 @@ class Doctor(User):
     phone = models.CharField(max_length=8,unique=True)
 
     specialties = models.ManyToManyField('Specialty')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta():
+        verbose_name = "Doctor"
+        verbose_name_plural = "Doctors"
     def __str__(self):
         return f"Dr. {self.first_name} {self.last_name}"
 
@@ -52,12 +57,17 @@ class Patient(User):
     birth_date = models.DateField(
         validators=[validate_past_date]
     )
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    class Meta:
+        verbose_name = "Patient"
+        verbose_name_plural = "Patients"
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
 class Specialty(models.Model):
     name = models.CharField(max_length=50,blank=False)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
